@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arivu API Documentation — v1 Client APIs</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --card: #ffffff;
+            --text: #3b4151;
+            --text-secondary: #6b7280;
+            --border: #e2e8f0;
+            --accent: #6366f1;
+            --accent-light: #eef2ff;
+            --get: #10b981;
+            --get-bg: #ecfdf5;
+            --get-border: #a7f3d0;
+            --post: #3b82f6;
+            --post-bg: #eff6ff;
+            --post-border: #bfdbfe;
+            --put: #f59e0b;
+            --put-bg: #fffbeb;
+            --put-border: #fde68a;
+            --patch: #8b5cf6;
+            --patch-bg: #f5f3ff;
+            --patch-border: #c4b5fd;
+            --delete: #ef4444;
+            --delete-bg: #fef2f2;
+            --delete-border: #fecaca;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --tag-bg: #f1f5f9;
+            --required: #ef4444;
+            --optional: #6b7280;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .topbar {
+            background: #1e293b;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .topbar-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .topbar-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .topbar-date {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Info Section */
+        .api-info {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .api-info h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .api-info .version {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .api-info .summary {
+            color: var(--text-secondary);
+            margin: 8px 0 16px;
+            font-size: 15px;
+        }
+
+        .api-info .description {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .api-info .description h3 {
+            font-size: 15px;
+            margin: 16px 0 6px;
+            color: var(--text);
+        }
+
+        .api-info .description ul {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .api-info .description code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .info-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .info-meta-item {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .info-meta-item a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .info-meta-item a:hover {
+            text-decoration: underline;
+        }
+
+        .info-meta-item strong {
+            color: var(--text);
+        }
+
+        /* Servers */
+        .servers {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+        }
+
+        .servers h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .server-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .server-url {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .server-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Tags Navigation */
+        .tags-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            position: sticky;
+            top: 56px;
+            z-index: 50;
+            background: var(--bg);
+            padding: 12px 0;
+        }
+
+        .tag-pill {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            transition: all 0.15s;
+            text-decoration: none;
+        }
+
+        .tag-pill:hover, .tag-pill.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Tag Group */
+        .tag-group {
+            margin-bottom: 40px;
+        }
+
+        .tag-group-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .tag-group-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .tag-group-header .tag-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Endpoint Card */
+        .endpoint {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.15s;
+        }
+
+        .endpoint:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .endpoint-header:hover {
+            background: #f8fafc;
+        }
+
+        .method-badge {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 6px;
+            min-width: 70px;
+            text-align: center;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .method-GET { background: var(--get-bg); color: var(--get); border: 1px solid var(--get-border); }
+        .method-POST { background: var(--post-bg); color: var(--post); border: 1px solid var(--post-border); }
+        .method-PUT { background: var(--put-bg); color: var(--put); border: 1px solid var(--put-border); }
+        .method-PATCH { background: var(--patch-bg); color: var(--patch); border: 1px solid var(--patch-border); }
+        .method-DELETE { background: var(--delete-bg); color: var(--delete); border: 1px solid var(--delete-border); }
+
+        .endpoint-path {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .endpoint-summary {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .endpoint-chevron {
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .endpoint.open .endpoint-chevron {
+            transform: rotate(180deg);
+        }
+
+        .endpoint-body {
+            display: none;
+            border-top: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .endpoint.open .endpoint-body {
+            display: block;
+        }
+
+        .endpoint-description {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* Auth Badge */
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .auth-badge svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Parameters Table */
+        .params-section {
+            margin-bottom: 20px;
+        }
+
+        .params-section h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .params-table th {
+            text-align: left;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-bottom: 2px solid var(--border);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--text-secondary);
+        }
+
+        .params-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .param-name {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .param-required {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--required);
+            text-transform: uppercase;
+        }
+
+        .param-optional {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--optional);
+        }
+
+        .param-in {
+            font-size: 11px;
+            background: var(--tag-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        .param-type {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--accent);
+        }
+
+        .param-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Request Body */
+        .request-body {
+            margin-bottom: 20px;
+        }
+
+        .request-body h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .schema-ref {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .schema-block {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+        }
+
+        .schema-block pre {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            color: var(--code-text);
+            line-height: 1.6;
+        }
+
+        .schema-field {
+            color: #93c5fd;
+        }
+
+        .schema-type {
+            color: #86efac;
+        }
+
+        .schema-comment {
+            color: #64748b;
+        }
+
+        /* Response Codes */
+        .responses-section h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .response-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            margin-right: 8px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .response-code-number {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 700;
+        }
+
+        .response-200 {
+            background: var(--get-bg);
+            color: var(--get);
+            border: 1px solid var(--get-border);
+        }
+
+        .response-422 {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        /* Schemas Section */
+        .schemas-section {
+            margin-top: 48px;
+        }
+
+        .schemas-section > h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .schema-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .schema-card-header {
+            padding: 14px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .schema-card-header:hover {
+            background: #f8fafc;
+        }
+
+        .schema-card-name {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .schema-card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-left: 16px;
+        }
+
+        .schema-card-body {
+            display: none;
+            border-top: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .schema-card.open .schema-card-body {
+            display: block;
+        }
+
+        /* Enum display */
+        .enum-values {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .enum-val {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Search */
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-bar svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .api-info { padding: 20px; }
+            .api-info h1 { font-size: 22px; }
+            .endpoint-header { flex-wrap: wrap; gap: 8px; }
+            .endpoint-summary { margin-left: 0; text-align: left; }
+            .info-meta { flex-direction: column; gap: 8px; }
+            .tags-nav { top: 56px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="topbar-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="#6366f1"/>
+                <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+                <circle cx="16" cy="14" r="3" fill="white"/>
+            </svg>
+            <span class="topbar-title">Arivu API</span>
+            <span class="topbar-badge">v1</span>
+        </div>
+        <span class="topbar-date">Tagged: April 29, 2026 (Tuesday)</span>
+    </div>
+
+    <div class="container">
+        <!-- API Info -->
+        <section class="api-info">
+            <h1>Keystone API — Client APIs <span class="version">v1.0.0</span></h1>
+            <p class="summary">Asymmetric FastAPI Backend with MongoDB support.</p>
+            <div class="description">
+                <p>Keystone API is a robust backend platform that supports multiple MongoDB databases, enabling scalable, high-performance operations for modern web applications.</p>
+
+                <h3>Features</h3>
+                <ul>
+                    <li><strong>Database Readiness:</strong> Ensures MongoDB databases are ready before startup.</li>
+                    <li><strong>Dynamic Route Management:</strong> Supports modular routing and exception handling.</li>
+                    <li><strong>Logging and Middleware:</strong> Provides comprehensive logging and custom middleware support.</li>
+                </ul>
+
+                <h3>Response Encryption</h3>
+                <p>Protected-route responses encrypt <code>data</code> with <strong>CryptoV2.1</strong> (<code>secret=device_id</code>, <code>salt=sub</code> from Bearer token). Login / OTP / token responses stay plaintext. Wire payloads carry <code>is_data_encrypted</code> + Base64 ciphertext in <code>data</code>. Toggle via <code>FEATURE_FLAG_V1_CLIENT_WHOLE_PAYLOAD_ENCRYPTION_ENABLED</code> (default: false).</p>
+
+                <h3>Request Encryption</h3>
+                <p>When whole-payload flag is true, clients send <code>{ "encrypted_data": "..." }</code> (CryptoV2.2). Query params stay plaintext. Exclusions: Google/Apple mobile login, health, webhooks.</p>
+            </div>
+
+            <div class="info-meta">
+                <div class="info-meta-item"><strong>Contact:</strong> Keystone Team — <a href="mailto:abhiigatty@asymmetriclabs.ai">abhiigatty@asymmetriclabs.ai</a></div>
+                <div class="info-meta-item"><strong>License:</strong> <a href="http://asymmetriclabs.ai/license/">Service License</a></div>
+                <div class="info-meta-item"><strong>Terms:</strong> <a href="http://asymmetriclabs.ai/terms/">Terms of Service</a></div>
+            </div>
+        </section>
+
+        <!-- Servers -->
+        <section class="servers">
+            <h3>Servers</h3>
+            <div class="server-item">
+                <span class="server-url">https://core-staging.cybosapiens.com/v1</span>
+                <span class="server-desc">Staging environment</span>
+            </div>
+            <div class="server-item">
+                <span class="server-url">https://joint-mongrel-really.ngrok-free.app/api/v1</span>
+                <span class="server-desc">Local environment via Ngrok (Interview / AbhiiGatty)</span>
+            </div>
+            <div class="server-item">
+                <span class="server-url">http://localhost:8080/v1</span>
+                <span class="server-desc">Local environment</span>
+            </div>
+        </section>
+
+        <!-- Search -->
+        <div class="search-bar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="Search endpoints, schemas, descriptions...">
+        </div>
+
+        <!-- Tags Nav -->
+        <nav class="tags-nav" id="tagsNav">
+            <a class="tag-pill active" href="#" data-tag="all">All</a>
+            <a class="tag-pill" href="#tag-infrastructure" data-tag="infrastructure">Infrastructure</a>
+            <a class="tag-pill" href="#tag-auth" data-tag="auth">Auth</a>
+            <a class="tag-pill" href="#tag-user" data-tag="user">User</a>
+            <a class="tag-pill" href="#tag-mcq" data-tag="mcq">MCQ</a>
+            <a class="tag-pill" href="#tag-mcq-actions" data-tag="mcq-actions">MCQ Actions</a>
+            <a class="tag-pill" href="#tag-bookmark-collections" data-tag="bookmark-collections">Bookmark Collections</a>
+            <a class="tag-pill" href="#tag-custom-tests" data-tag="custom-tests">Custom Tests</a>
+            <a class="tag-pill" href="#tag-payments" data-tag="payments">Payments</a>
+            <a class="tag-pill" href="#tag-sync" data-tag="sync">Sync</a>
+            <a class="tag-pill" href="#tag-schemas" data-tag="schemas">Schemas</a>
+        </nav>
+
+        <!-- ===== INFRASTRUCTURE ===== -->
+        <section class="tag-group" id="tag-infrastructure" data-tag="infrastructure">
+            <div class="tag-group-header">
+                <h2>Infrastructure</h2>
+                <span class="tag-desc">Health checks and webhooks.</span>
+            </div>
+
+            <!-- GET /health -->
+            <div class="endpoint" data-search="health check infrastructure get">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/health</span>
+                    <span class="endpoint-summary">Health Check</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Check the health status of the API and its dependencies.</p>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                    </div>
+                    <div class="request-body" style="margin-top:16px">
+                        <h4>Response Schema: <span class="schema-ref">HealthCheckResponse</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"message"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"version"</span>: <span class="schema-type">string</span>
+}</pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /webhooks/razorpay -->
+            <div class="endpoint" data-search="razorpay webhook infrastructure post payment captured failed">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/webhooks/razorpay</span>
+                    <span class="endpoint-summary">Razorpay Webhook</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Handle Razorpay webhook events (payment.captured, payment.failed, etc.)</p>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== AUTH ===== -->
+        <section class="tag-group" id="tag-auth" data-tag="auth">
+            <div class="tag-group-header">
+                <h2>Auth</h2>
+                <span class="tag-desc">Login, OTP, token refresh, logout.</span>
+            </div>
+
+            <!-- POST /auth/send-email-otp -->
+            <div class="endpoint" data-search="send email otp auth post request login">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/send-email-otp</span>
+                    <span class="endpoint-summary">Request OTP</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Send a one-time password (OTP) to the provided email for authentication.</p>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">platform</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Login platform — <span class="param-type">LoginPlatformEnum</span> (web, ios, ios_t, an, an_t)</td></tr>
+                                <tr><td><span class="param-name">application</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Application identifier — <span class="param-type">LoginApplicationEnum</span> (wri, prx, arivu)</td></tr>
+                                <tr><td><span class="param-name">device_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Device ID for mobile platforms</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits) from the client device</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">EmailOTPRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"email"</span>: <span class="schema-type">string | null</span>,     <span class="schema-comment">// Email address to receive OTP</span>
+  <span class="schema-field">"encrypted_data"</span>: <span class="schema-type">string | null</span>  <span class="schema-comment">// Encrypted data payload (when encryption enabled)</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                    <div class="request-body" style="margin-top:16px">
+                        <h4>Response Schema: <span class="schema-ref">OTPRequestResponse</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"message"</span>: <span class="schema-type">string</span>,       <span class="schema-comment">// Confirmation message</span>
+  <span class="schema-field">"expiry_time"</span>: <span class="schema-type">integer</span>,   <span class="schema-comment">// Epoch ms when OTP expires</span>
+  <span class="schema-field">"oti"</span>: <span class="schema-type">string</span>             <span class="schema-comment">// Unique identifier for the OTP request</span>
+}</pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /auth/verify-email-otp -->
+            <div class="endpoint" data-search="verify email otp auth post token login">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/verify-email-otp</span>
+                    <span class="endpoint-summary">Verify OTP</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Verify the OTP sent to the email and generate authentication tokens.</p>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">platform</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Login platform</td></tr>
+                                <tr><td><span class="param-name">application</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Application identifier</td></tr>
+                                <tr><td><span class="param-name">device_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Device ID for mobile platforms</td></tr>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">The ID of the course to which this resource belongs</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">EmailOTPVerifyRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"email"</span>: <span class="schema-type">string | null</span>,          <span class="schema-comment">// Email address linked to OTP</span>
+  <span class="schema-field">"otp"</span>: <span class="schema-type">string | null</span>,            <span class="schema-comment">// One-time password</span>
+  <span class="schema-field">"oti"</span>: <span class="schema-type">string | null</span>,            <span class="schema-comment">// Unique identifier for OTP request</span>
+  <span class="schema-field">"encrypted_data"</span>: <span class="schema-type">string | null</span>  <span class="schema-comment">// Encrypted data payload</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                    <div class="request-body" style="margin-top:16px">
+                        <h4>Response Schema: <span class="schema-ref">OTPVerifyResponse</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"access_token"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"refresh_token"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"token_type"</span>: <span class="schema-type">string</span>,            <span class="schema-comment">// "bearer"</span>
+  <span class="schema-field">"user_details"</span>: <span class="schema-type">UserDetailsResponse | null</span>,
+  <span class="schema-field">"signed_cookies"</span>: <span class="schema-type">CloudFrontSignedCookiesResponse | null</span>
+}</pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /auth/login/apple/mobile -->
+            <div class="endpoint" data-search="apple mobile login auth post ios sso">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/login/apple/mobile</span>
+                    <span class="endpoint-summary">Apple Mobile Login</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Handle Apple Sign In for native iOS/Android clients using identity token.</p>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">The ID of the course</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">MobileAppleLoginRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"token"</span>: <span class="schema-type">string</span>,             <span class="schema-comment">// required — Apple identity token</span>
+  <span class="schema-field">"device_id"</span>: <span class="schema-type">string | null</span>,   <span class="schema-comment">// required — Device ID</span>
+  <span class="schema-field">"platform"</span>: <span class="schema-type">MobileLoginPlatformEnum</span>, <span class="schema-comment">// required — ios, ios_t, an, an_t</span>
+  <span class="schema-field">"application"</span>: <span class="schema-type">LoginApplicationEnum</span>, <span class="schema-comment">// required — wri, prx, arivu</span>
+  <span class="schema-field">"first_name"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// optional — Only on initial Apple Sign In</span>
+  <span class="schema-field">"last_name"</span>: <span class="schema-type">string | null</span>   <span class="schema-comment">// optional — Only on initial Apple Sign In</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /auth/login/google/mobile -->
+            <div class="endpoint" data-search="google mobile login auth post android sso">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/login/google/mobile</span>
+                    <span class="endpoint-summary">Google Login Mobile</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Handle Google authentication for mobile devices using ID token.</p>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">The ID of the course</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">MobileGoogleLoginRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"token"</span>: <span class="schema-type">string</span>,             <span class="schema-comment">// required — Google JWT token</span>
+  <span class="schema-field">"device_id"</span>: <span class="schema-type">string | null</span>,   <span class="schema-comment">// required — Device ID</span>
+  <span class="schema-field">"platform"</span>: <span class="schema-type">MobileLoginPlatformEnum</span>, <span class="schema-comment">// required — ios, ios_t, an, an_t</span>
+  <span class="schema-field">"application"</span>: <span class="schema-type">LoginApplicationEnum</span>  <span class="schema-comment">// required — wri, prx, arivu</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /auth/refresh -->
+            <div class="endpoint" data-search="refresh token auth post access jwt">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/refresh</span>
+                    <span class="endpoint-summary">Refresh Token</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Generate a new access token using a valid refresh token.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">RefreshTokenRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"refresh_token"</span>: <span class="schema-type">string</span>,  <span class="schema-comment">// required — The refresh token to use</span>
+  <span class="schema-field">"grant_type"</span>: <span class="schema-type">string</span>     <span class="schema-comment">// required — Must be "refresh_token"</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">TokenResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /auth/logout -->
+            <div class="endpoint" data-search="logout auth post session invalidate">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/auth/logout</span>
+                    <span class="endpoint-summary">Logout</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Invalidate the current session's refresh token.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">LogoutResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /auth/me -->
+            <div class="endpoint" data-search="me auth get current user profile details">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/auth/me</span>
+                    <span class="endpoint-summary">Get Current User</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve the details of the currently authenticated user.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Course ID — includes subscription details when provided</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">UserDetailsResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== USER ===== -->
+        <section class="tag-group" id="tag-user" data-tag="user">
+            <div class="tag-group-header">
+                <h2>User</h2>
+                <span class="tag-desc">Profile management, phone verification, reports.</span>
+            </div>
+
+            <!-- GET /users/mcq-daily/sync -->
+            <div class="endpoint" data-search="mcq daily sync stats user get">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/users/mcq-daily/sync</span>
+                    <span class="endpoint-summary">Sync User MCQ Daily Stats</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Sync user MCQ daily stats by updated_at. Returns records updated after the cursor, filtered to day_start_epoch_ms >= sync_from_epoch_ms. Use next_cursor for next page.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">The course ID for which to fetch stats</td></tr>
+                                <tr><td><span class="param-name">sync_from_epoch_ms</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Start of day (UTC epoch ms). Only entries with day_start_epoch_ms >= this value</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Encoded cursor (updated_at, id) for sync. Omit for first page</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Maximum number of records to return</td></tr>
+                                <tr><td><span class="param-name">x-dev-time</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Epoch time in milliseconds (13 digits)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">UserMcqDailyStatsSyncItemResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELETE /users -->
+            <div class="endpoint" data-search="delete user account">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-DELETE">DELETE</span>
+                    <span class="endpoint-path">/users</span>
+                    <span class="endpoint-summary">Delete User</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Delete a user by their unique identifier using the access_token and log them out from all active sessions.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATCH /users/info -->
+            <div class="endpoint" data-search="update user info name background attempt patch">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-PATCH">PATCH</span>
+                    <span class="endpoint-path">/users/info</span>
+                    <span class="endpoint-summary">Update User Info</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Update user info fields (name, background_info, attempt_number, attempt_year). All fields are optional; only provided fields are updated.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">UserInfoUpdateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"name"</span>: { <span class="schema-field">"first_name"</span>: <span class="schema-type">string</span>, <span class="schema-field">"last_name"</span>: <span class="schema-type">string</span> } | <span class="schema-type">null</span>,
+  <span class="schema-field">"background_info"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"attempt_number"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"attempt_year"</span>: <span class="schema-type">integer | null</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /users/profile-picture -->
+            <div class="endpoint" data-search="upload profile picture user post image avatar">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/users/profile-picture</span>
+                    <span class="endpoint-summary">Upload Profile Picture</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Upload a profile picture for the authenticated user.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">multipart/form-data</span></h4>
+                        <div class="schema-block"><pre><span class="schema-comment">// Content-Type: multipart/form-data</span>
+<span class="schema-field">"file"</span>: <span class="schema-type">binary</span>  <span class="schema-comment">// required — Image file</span></pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">ImageVariant</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /users/send-phone-otp -->
+            <div class="endpoint" data-search="send phone otp user post validate number">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/users/send-phone-otp</span>
+                    <span class="endpoint-summary">Initiate Phone Number Validation</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Send an OTP to validate the user's phone number.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">PhoneNumberValidationRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"phone_number"</span>: {
+    <span class="schema-field">"code"</span>: <span class="schema-type">string</span>,   <span class="schema-comment">// "+91" (India only)</span>
+    <span class="schema-field">"value"</span>: <span class="schema-type">string</span>   <span class="schema-comment">// 10-15 digits</span>
+  }
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /users/verify-phone-otp -->
+            <div class="endpoint" data-search="verify phone otp user post number validation">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/users/verify-phone-otp</span>
+                    <span class="endpoint-summary">Verify Phone Number Validation</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Verify the OTP and validate the user's phone number.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">PhoneNumberValidationVerifyRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"phone_number"</span>: { <span class="schema-field">"code"</span>: <span class="schema-type">"+91"</span>, <span class="schema-field">"value"</span>: <span class="schema-type">string</span> },
+  <span class="schema-field">"otp"</span>: <span class="schema-type">string</span>,     <span class="schema-comment">// required</span>
+  <span class="schema-field">"oti"</span>: <span class="schema-type">string</span>      <span class="schema-comment">// required — OTP request identifier</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /users/report -->
+            <div class="endpoint" data-search="report user post content issue mcq docket">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/users/report</span>
+                    <span class="endpoint-summary">Create User Report</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Create a user report regarding content issues.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">The course to which the reported content belongs</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">UserReportCreateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"content_id"</span>: <span class="schema-type">ObjectId</span>,            <span class="schema-comment">// required — MCQ or Docket ID</span>
+  <span class="schema-field">"content_short_uid"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// e.g. "M01234"</span>
+  <span class="schema-field">"content_type"</span>: <span class="schema-type">integer</span>,             <span class="schema-comment">// required — DOCKET=1 | MCQ=2</span>
+  <span class="schema-field">"issue_type"</span>: <span class="schema-type">integer</span>,               <span class="schema-comment">// required — Default=1</span>
+  <span class="schema-field">"comments"</span>: <span class="schema-type">string</span>                  <span class="schema-comment">// required — Description of the issue</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MCQ ===== -->
+        <section class="tag-group" id="tag-mcq" data-tag="mcq">
+            <div class="tag-group-header">
+                <h2>MCQ</h2>
+                <span class="tag-desc">MCQ questions and operations.</span>
+            </div>
+
+            <!-- GET /mcqs/sync -->
+            <div class="endpoint" data-search="mcq sync list pyq questions get updated_at pagination">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/mcqs/sync</span>
+                    <span class="endpoint-summary">List PYQ MCQs by Updated At (sync)</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of PYQ MCQs with forward-only pagination by <code>updated_at</code>. Only PYQs are returned (DQ/EQ excluded). Filter by <strong>year</strong> or <strong>taxonomy_id</strong>, not both.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results to return</td></tr>
+                                <tr><td><span class="param-name">year</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Filter MCQs by year (e.g., 2023)</td></tr>
+                                <tr><td><span class="param-name">taxonomy_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Filter MCQs by taxonomy ID</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">MCQDetailsListResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /mcqs/batch -->
+            <div class="endpoint" data-search="mcq batch get ids short_uid multiple">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/mcqs/batch</span>
+                    <span class="endpoint-summary">Get MCQs by IDs</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve up to 100 MCQs by MongoDB ObjectId or <code>short_uid</code> (comma-separated <code>ids</code> query). Missing IDs are omitted (no error per ID).</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">ids</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Comma-separated list of MCQ IDs or short UIDs (max 100)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">MCQDetailsListResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MCQ ACTIONS ===== -->
+        <section class="tag-group" id="tag-mcq-actions" data-tag="mcq-actions">
+            <div class="tag-group-header">
+                <h2>MCQ Actions</h2>
+                <span class="tag-desc">Attempt, bookmark, reactions on MCQs.</span>
+            </div>
+
+            <!-- POST /mcqs_attrs/reactions -->
+            <div class="endpoint" data-search="mcq reaction like dislike post">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/mcqs_attrs/reactions</span>
+                    <span class="endpoint-summary">Like/Dislike MCQ</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Like/Dislike interactions on MCQs.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">MCQReactionRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"reactions"</span>: [            <span class="schema-comment">// required — Array of reactions</span>
+    {
+      <span class="schema-field">"mcq_id"</span>: <span class="schema-type">ObjectId</span>,
+      <span class="schema-field">"reaction_status"</span>: <span class="schema-type">integer</span>  <span class="schema-comment">// LIKE=1 | DISLIKE=2 | NONE=3</span>
+    }
+  ]
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /mcqs_attrs/sync -->
+            <div class="endpoint" data-search="mcq attrs sync reactions list get">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/mcqs_attrs/sync</span>
+                    <span class="endpoint-summary">List MCQ Reactions</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of MCQ reactions with forward-only pagination based on updated_at timestamp.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results to return</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">MCQAttributesResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /mcqs_attrs/bookmark -->
+            <div class="endpoint" data-search="mcq bookmark post save collection">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/mcqs_attrs/bookmark</span>
+                    <span class="endpoint-summary">Bookmark MCQ</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Bookmark MCQ into collections.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">MCQBookmarkRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"bookmarks"</span>: [            <span class="schema-comment">// required — Array of bookmark ops</span>
+    {
+      <span class="schema-field">"mcq_id"</span>: <span class="schema-type">ObjectId</span>,
+      <span class="schema-field">"bookmark_status"</span>: <span class="schema-type">integer</span>,      <span class="schema-comment">// BOOKMARKED=1 | NOT_BOOKMARKED=2</span>
+      <span class="schema-field">"bookmark_collection_ids"</span>: <span class="schema-type">ObjectId[]</span>  <span class="schema-comment">// Collection IDs</span>
+    }
+  ]
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /mcqs_attrs/attempt -->
+            <div class="endpoint" data-search="mcq attempt post answer submit option">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/mcqs_attrs/attempt</span>
+                    <span class="endpoint-summary">Attempt MCQ</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Submit MCQ attempt answers (bulk).</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">MCQAttemptRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"attempts"</span>: [            <span class="schema-comment">// required — Array of attempts</span>
+    {
+      <span class="schema-field">"mcq_id"</span>: <span class="schema-type">ObjectId</span>,
+      <span class="schema-field">"selected_option"</span>: <span class="schema-type">string</span>  <span class="schema-comment">// "option_1" | "option_2" | "option_3" | "option_4"</span>
+    }
+  ]
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BOOKMARK COLLECTIONS ===== -->
+        <section class="tag-group" id="tag-bookmark-collections" data-tag="bookmark-collections">
+            <div class="tag-group-header">
+                <h2>Bookmark Collections</h2>
+                <span class="tag-desc">CRUD for bookmark collections.</span>
+            </div>
+
+            <!-- POST /bookmark-collections -->
+            <div class="endpoint" data-search="bookmark collection create post">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/bookmark-collections</span>
+                    <span class="endpoint-summary">Create Bookmark Collection</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Create a new bookmark collection for the authenticated user.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID this collection belongs to</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">BookmarkCollectionCreateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"name"</span>: <span class="schema-type">string</span>,              <span class="schema-comment">// required — Collection name</span>
+  <span class="schema-field">"description"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// optional</span>
+  <span class="schema-field">"emoji"</span>: <span class="schema-type">string</span>              <span class="schema-comment">// required — Single emoji</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">BookmarkCollectionResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /bookmark-collections/sync -->
+            <div class="endpoint" data-search="bookmark collection sync list get cursor">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/bookmark-collections/sync</span>
+                    <span class="endpoint-summary">Sync Bookmark Collections</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Get a paginated list of bookmark collections using cursor-based pagination.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID to filter</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">BookmarkCollectionResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATCH /bookmark-collections/{collection_id} -->
+            <div class="endpoint" data-search="bookmark collection update rename patch">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-PATCH">PATCH</span>
+                    <span class="endpoint-path">/bookmark-collections/{collection_id}</span>
+                    <span class="endpoint-summary">Update Bookmark Collection</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Update a bookmark collection (rename, description).</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">collection_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">The collection ID to update</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">BookmarkCollectionUpdateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"name"</span>: <span class="schema-type">string | null</span>,         <span class="schema-comment">// New name</span>
+  <span class="schema-field">"description"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// New description</span>
+  <span class="schema-field">"emoji"</span>: <span class="schema-type">string | null</span>         <span class="schema-comment">// New emoji</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELETE /bookmark-collections/{collection_id} -->
+            <div class="endpoint" data-search="bookmark collection delete remove">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-DELETE">DELETE</span>
+                    <span class="endpoint-path">/bookmark-collections/{collection_id}</span>
+                    <span class="endpoint-summary">Delete Bookmark Collection</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Delete a bookmark collection and move all MCQs to 'All Bookmarks'.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">collection_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">Collection ID to delete</td></tr>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID this collection belongs to</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CUSTOM TESTS ===== -->
+        <section class="tag-group" id="tag-custom-tests" data-tag="custom-tests">
+            <div class="tag-group-header">
+                <h2>Custom Tests</h2>
+                <span class="tag-desc">Create, submit, discard, and list custom tests.</span>
+            </div>
+
+            <!-- POST /custom-tests -->
+            <div class="endpoint" data-search="custom test create post mcq selection filters">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/custom-tests</span>
+                    <span class="endpoint-summary">Create Custom Test</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Create a new custom test with configurable MCQ selection, duration, mode, and explanation settings.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">CustomTestCreateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"mcq_selection_filters"</span>: <span class="schema-type">object | null</span>,  <span class="schema-comment">// MCQ selection criteria</span>
+  <span class="schema-field">"number_of_mcqs"</span>: <span class="schema-type">integer</span>,             <span class="schema-comment">// default: 10</span>
+  <span class="schema-field">"duration_in_mins"</span>: <span class="schema-type">integer</span>,           <span class="schema-comment">// default: 10</span>
+  <span class="schema-field">"test_mode"</span>: <span class="schema-type">integer</span>,                  <span class="schema-comment">// STUDY=1 | EXAM=2 | MULTI_PLAYER=3 (default: 1)</span>
+  <span class="schema-field">"explanation_mode"</span>: <span class="schema-type">integer</span>,            <span class="schema-comment">// ALL=1 | WRONG_ONLY=2 | SHOW_AT_END=3 (default: 1)</span>
+  <span class="schema-field">"explanation_detail_level"</span>: <span class="schema-type">integer</span>,   <span class="schema-comment">// SHORT=1 | FULL=2 (default: 1)</span>
+  <span class="schema-field">"mcq_algorithm"</span>: <span class="schema-type">integer</span>              <span class="schema-comment">// V1=1 | V2=2 | V3=3 (default: 3)</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">CustomTestCreateDetailsResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /custom-tests/{custom_test_id}/discard -->
+            <div class="endpoint" data-search="custom test discard post cancel">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/custom-tests/{custom_test_id}/discard</span>
+                    <span class="endpoint-summary">Discard Custom Test</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Discard a custom test without submission. Marks the test as finished (not live).</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">custom_test_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">Custom test ID to discard</td></tr>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — data: null</span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /custom-tests/{custom_test_id}/submission -->
+            <div class="endpoint" data-search="custom test submit submission answers post results">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/custom-tests/{custom_test_id}/submission</span>
+                    <span class="endpoint-summary">Submit Custom Test</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Submit answers for a custom test. Returns test results with scoring and analytics.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">custom_test_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">Custom test ID to submit</td></tr>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">CustomTestSubmissionRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"answers"</span>: {                  <span class="schema-comment">// required — { mcq_id: selected_option }</span>
+    <span class="schema-field">"&lt;mcq_id&gt;"</span>: <span class="schema-type">"option_1"</span>    <span class="schema-comment">// option_1..option_4, or "-1" for skipped</span>
+  },
+  <span class="schema-field">"started_at"</span>: <span class="schema-type">integer | null</span>,   <span class="schema-comment">// Test start epoch ms</span>
+  <span class="schema-field">"ended_at"</span>: <span class="schema-type">integer | null</span>,     <span class="schema-comment">// Test end epoch ms</span>
+  <span class="schema-field">"silly_mistake_mcq_ids"</span>: <span class="schema-type">string[] | null</span>,
+  <span class="schema-field">"streak"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"guessed_mcq_ids"</span>: <span class="schema-type">string[] | null</span>,
+  <span class="schema-field">"marked_for_review_mcq_ids"</span>: <span class="schema-type">string[] | null</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">CustomTestResultsResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /custom-tests/sync -->
+            <div class="endpoint" data-search="custom test sync list get cursor pagination">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/custom-tests/sync</span>
+                    <span class="endpoint-summary">Sync Custom Tests by Updated At</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of custom tests with forward-only pagination based on the updated_at timestamp.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">CustomTestListDetailsResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /custom-tests/{custom_test_id} -->
+            <div class="endpoint" data-search="custom test get details by id short_id">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/custom-tests/{custom_test_id}</span>
+                    <span class="endpoint-summary">Get Custom Test By Id Or Short Id</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a custom test by its unique identifier (ObjectId or short_uid). Returns full MCQ details and results if submitted.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">custom_test_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">Custom test ID or short_uid</td></tr>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">CustomTestDetailsResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PAYMENTS ===== -->
+        <section class="tag-group" id="tag-payments" data-tag="payments">
+            <div class="tag-group-header">
+                <h2>Payments</h2>
+                <span class="tag-desc">Plans, orders, coupons, payment verification.</span>
+            </div>
+
+            <!-- GET /plans -->
+            <div class="endpoint" data-search="plans list get subscription pricing trial">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/plans</span>
+                    <span class="endpoint-summary">List Plans</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">List all plans for the course matching filters, sorted by updated_at. No pagination; trial visibility follows server rules (user subscription / trial eligibility).</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">plan_group_id</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Plan group ID (1-10). Defaults to 1</td></tr>
+                                <tr><td><span class="param-name">status</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">INACTIVE=0 | ACTIVE=1</td></tr>
+                                <tr><td><span class="param-name">type</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">PUBLIC=1 | PRIVATE=2 | GIFT=3 | TRIAL=4</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">PlanDetailsResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /orders -->
+            <div class="endpoint" data-search="order create post checkout razorpay trial payment">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/orders</span>
+                    <span class="endpoint-summary">Create Order</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Create a new order with plan and optional coupon code. Returns checkout-shaped data. For paid orders (total_amount > 0), creates the Razorpay order and returns razorpay_order_id and razorpay_key_id; trial orders return payment_mode=trial without Razorpay.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">x-platform</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Client platform</td></tr>
+                                <tr><td><span class="param-name">x-device-id</span></td><td><span class="param-in">header</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Device ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">OrderCreateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"plan_id"</span>: <span class="schema-type">ObjectId</span>,          <span class="schema-comment">// required — Plan to purchase</span>
+  <span class="schema-field">"coupon_code"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// optional — Coupon code</span>
+  <span class="schema-field">"state"</span>: <span class="schema-type">string | null</span>         <span class="schema-comment">// optional — State (e.g. "maharashtra")</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">InitiatePaymentResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /orders/verify-payment -->
+            <div class="endpoint" data-search="order verify payment razorpay trial post">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/orders/verify-payment</span>
+                    <span class="endpoint-summary">Verify Razorpay Payment (primary)</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Primary path: body <code>{ order_id }</code> only. Paid: resolve Razorpay via gateway. Trial (total=0): completes internal trial fulfillment on the same endpoint.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">RazorpayVerifyRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"order_id"</span>: <span class="schema-type">ObjectId</span>  <span class="schema-comment">// required — Keystone order document id</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">RazorpayVerifyResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /orders/{order_id}/initiate-payment -->
+            <div class="endpoint" data-search="order initiate payment checkout post razorpay">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/orders/{order_id}/initiate-payment</span>
+                    <span class="endpoint-summary">Initiate Payment</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Returns checkout data for the order. Razorpay: razorpay_order_id + key. If order is already PENDING with a stored Razorpay order, returns those IDs without creating a duplicate. Free trial: payment_mode=trial.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">order_id</span></td><td><span class="param-in">path</span></td><td><span class="param-required">required</span></td><td class="param-desc">Order ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">InitiatePaymentResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /payments -->
+            <div class="endpoint" data-search="payments billing history list get">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/payments</span>
+                    <span class="endpoint-summary">List Billing History</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Successful payments for the current user (newest first), with order plan snapshots. PRD-aligned alias for mobile billing history.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Max payment rows to return</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">PaymentHistoryRowProjection[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST /coupons/validate -->
+            <div class="endpoint" data-search="coupon validate discount post code">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-POST">POST</span>
+                    <span class="endpoint-path">/coupons/validate</span>
+                    <span class="endpoint-summary">Validate Coupon Code</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Validate a coupon code for a specific plan and get discount information.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="request-body">
+                        <h4>Request Body — <span class="schema-ref">CouponValidateRequest</span></h4>
+                        <div class="schema-block"><pre>{
+  <span class="schema-field">"coupon_code"</span>: <span class="schema-type">string</span>,     <span class="schema-comment">// required — Coupon code</span>
+  <span class="schema-field">"plan_id"</span>: <span class="schema-type">ObjectId</span>         <span class="schema-comment">// required — Plan ID to validate for</span>
+}</pre></div>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">CouponValidateResponse</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SYNC ===== -->
+        <section class="tag-group" id="tag-sync" data-tag="sync">
+            <div class="tag-group-header">
+                <h2>Sync</h2>
+                <span class="tag-desc">Cursor-based sync endpoints for offline-first clients.</span>
+            </div>
+
+            <!-- GET /tags/sync -->
+            <div class="endpoint" data-search="tags sync list get cursor updated_at">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/tags/sync</span>
+                    <span class="endpoint-summary">Sync Tags by Updated At</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of tags with forward-only pagination based on the updated_at timestamp.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">TagDetailsResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /dockets/sync -->
+            <div class="endpoint" data-search="dockets sync list get lightweight cursor">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/dockets/sync</span>
+                    <span class="endpoint-summary">Sync Dockets by Updated At (Lightweight)</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a lightweight paginated list of dockets for sync. Excludes body, ai_run_results, and other heavy fields; includes mcq_ids and mcq_count.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">DocketSyncListResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /taxonomy/sync -->
+            <div class="endpoint" data-search="taxonomy sync list get cursor updated_at subject">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/taxonomy/sync</span>
+                    <span class="endpoint-summary">Sync Taxonomies by Updated At</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of taxonomies with forward-only pagination based on the updated_at timestamp.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">TaxonomyDetailsResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET /years/sync -->
+            <div class="endpoint" data-search="years sync list get cursor updated_at">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method-badge method-GET">GET</span>
+                    <span class="endpoint-path">/years/sync</span>
+                    <span class="endpoint-summary">Sync Years by Updated At</span>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="endpoint-body">
+                    <p class="endpoint-description">Retrieve a paginated list of years by updated_at timestamp.</p>
+                    <span class="auth-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bearer Token</span>
+                    <div class="params-section">
+                        <h4>Parameters</h4>
+                        <table class="params-table">
+                            <thead><tr><th>Name</th><th>In</th><th>Required</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><span class="param-name">course_id</span></td><td><span class="param-in">query</span></td><td><span class="param-required">required</span></td><td class="param-desc">Course ID</td></tr>
+                                <tr><td><span class="param-name">limit</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Number of results</td></tr>
+                                <tr><td><span class="param-name">next_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Forward pagination cursor</td></tr>
+                                <tr><td><span class="param-name">prev_cursor</span></td><td><span class="param-in">query</span></td><td><span class="param-optional">optional</span></td><td class="param-desc">Backward pagination cursor</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="responses-section">
+                        <h4>Responses</h4>
+                        <span class="response-code response-200"><span class="response-code-number">200</span> Successful Response — <span class="schema-ref">YearsDetailsResponse[]</span></span>
+                        <span class="response-code response-422"><span class="response-code-number">422</span> Validation Error</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SCHEMAS REFERENCE ===== -->
+        <section class="schemas-section" id="tag-schemas" data-tag="schemas">
+            <h2>Schemas Reference</h2>
+
+            <!-- Base Response Wrapper -->
+            <div class="schema-card" data-search="base response wrapper status data encryption">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">BaseResponse&lt;T&gt;</span>
+                        <span class="schema-card-desc">Generic API response wrapper</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"status"</span>: <span class="schema-type">"success" | "failure"</span>,
+  <span class="schema-field">"is_data_encrypted"</span>: <span class="schema-type">integer</span>,  <span class="schema-comment">// NONE=0 | V2_1=1 | V2_2=2</span>
+  <span class="schema-field">"data"</span>: <span class="schema-type">T | string | null</span>,     <span class="schema-comment">// Payload or ciphertext</span>
+  <span class="schema-field">"error"</span>: {
+    <span class="schema-field">"message"</span>: <span class="schema-type">string</span>,
+    <span class="schema-field">"code"</span>: <span class="schema-type">integer</span>
+  } | <span class="schema-type">null</span>,
+  <span class="schema-field">"app_actions"</span>: <span class="schema-type">object | null</span>   <span class="schema-comment">// Client app actions (version block etc.)</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="schema-card" data-search="cursor pagination next prev has_more">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">CursorPagination</span>
+                        <span class="schema-card-desc">Cursor-based pagination wrapper</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"next_cursor"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// Forward cursor</span>
+  <span class="schema-field">"prev_cursor"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// Backward cursor</span>
+  <span class="schema-field">"has_more"</span>: <span class="schema-type">boolean</span>             <span class="schema-comment">// Whether more pages exist</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- UserDetailsResponse -->
+            <div class="schema-card" data-search="user details response profile email name subscription">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">UserDetailsResponse</span>
+                        <span class="schema-card-desc">Full user profile</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"id"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"email"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"username"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"phone_number"</span>: { <span class="schema-field">"code"</span>: <span class="schema-type">string</span>, <span class="schema-field">"value"</span>: <span class="schema-type">string</span> } | <span class="schema-type">null</span>,
+  <span class="schema-field">"is_phone_validated"</span>: <span class="schema-type">boolean | null</span>,
+  <span class="schema-field">"name"</span>: { <span class="schema-field">"first_name"</span>: <span class="schema-type">string</span>, <span class="schema-field">"last_name"</span>: <span class="schema-type">string</span> } | <span class="schema-type">null</span>,
+  <span class="schema-field">"date_of_birth"</span>: <span class="schema-type">integer | null</span>,    <span class="schema-comment">// UTC epoch ms</span>
+  <span class="schema-field">"gender"</span>: <span class="schema-type">integer | null</span>,          <span class="schema-comment">// NON_BINARY=0 | MALE=1 | FEMALE=2 | OTHER=3</span>
+  <span class="schema-field">"bio"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"background_info"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"attempt_number"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"attempt_year"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"profile_picture"</span>: <span class="schema-type">ImageVariant | null</span>,
+  <span class="schema-field">"address"</span>: <span class="schema-type">Address | null</span>,
+  <span class="schema-field">"social_links"</span>: <span class="schema-type">array | null</span>,
+  <span class="schema-field">"mcq_stats"</span>: <span class="schema-type">CustomTestMCQStatsResponse | null</span>,
+  <span class="schema-field">"subscription"</span>: <span class="schema-type">SubscriptionDetailsResponse | null</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- MCQDetailsListResponse -->
+            <div class="schema-card" data-search="mcq details list response question option taxonomy">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">MCQDetailsListResponse</span>
+                        <span class="schema-card-desc">MCQ detail for sync/batch endpoints</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"id"</span>: <span class="schema-type">ObjectId</span>,
+  <span class="schema-field">"display_uid"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"short_uid"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"question"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"question_format"</span>: <span class="schema-type">integer</span>,         <span class="schema-comment">// SIMPLE_MCQ=1 | ADVANCED_MCQ=2</span>
+  <span class="schema-field">"q_pview"</span>: <span class="schema-type">string | null</span>,            <span class="schema-comment">// Plain text preview</span>
+  <span class="schema-field">"option_1"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"selected_option_1_count"</span>: <span class="schema-type">integer</span>,
+  <span class="schema-field">"option_2"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"selected_option_2_count"</span>: <span class="schema-type">integer</span>,
+  <span class="schema-field">"option_3"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"selected_option_3_count"</span>: <span class="schema-type">integer</span>,
+  <span class="schema-field">"option_4"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"selected_option_4_count"</span>: <span class="schema-type">integer</span>,
+  <span class="schema-field">"correct_option"</span>: <span class="schema-type">string</span>,            <span class="schema-comment">// "option_1" etc.</span>
+  <span class="schema-field">"question_type"</span>: <span class="schema-type">integer</span>,            <span class="schema-comment">// PYQ=1 | DQ=2 | EQ=3</span>
+  <span class="schema-field">"year"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"root_taxonomy_id"</span>: <span class="schema-type">ObjectId | null</span>, <span class="schema-comment">// L1 taxonomy</span>
+  <span class="schema-field">"taxonomy_ids"</span>: <span class="schema-type">ObjectId[]</span>,          <span class="schema-comment">// [L1, L2, L3]</span>
+  <span class="schema-field">"sole"</span>: <span class="schema-type">string | null</span>,              <span class="schema-comment">// Encrypted solution</span>
+  <span class="schema-field">"sort_order"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"tag_ids"</span>: <span class="schema-type">ObjectId[] | null</span>,
+  <span class="schema-field">"docket_id"</span>: <span class="schema-type">ObjectId | null</span>,
+  <span class="schema-field">"is_deleted"</span>: <span class="schema-type">boolean</span>,
+  <span class="schema-field">"ordered_block_ids"</span>: <span class="schema-type">string[] | null</span>,
+  <span class="schema-field">"block_details"</span>: <span class="schema-type">BlockForMCQDetailsResponse[] | null</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- PlanDetailsResponse -->
+            <div class="schema-card" data-search="plan details response pricing subscription duration">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">PlanDetailsResponse</span>
+                        <span class="schema-card-desc">Subscription plan details</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"id"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"name"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"description"</span>: <span class="schema-type">string | null</span>,        <span class="schema-comment">// PlateJS JSON</span>
+  <span class="schema-field">"plan_group_id"</span>: <span class="schema-type">integer</span>,           <span class="schema-comment">// 1-10</span>
+  <span class="schema-field">"sort_order"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"type"</span>: <span class="schema-type">integer</span>,                    <span class="schema-comment">// PUBLIC=1 | PRIVATE=2 | GIFT=3 | TRIAL=4</span>
+  <span class="schema-field">"subscription_components"</span>: <span class="schema-type">SubscriptionComponentItemResponse[]</span>,
+  <span class="schema-field">"duration_in_days"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"currency"</span>: <span class="schema-type">string | null</span>,          <span class="schema-comment">// "INR", "USD"</span>
+  <span class="schema-field">"precision"</span>: <span class="schema-type">integer | null</span>,        <span class="schema-comment">// Decimal places (e.g. 2)</span>
+  <span class="schema-field">"max_price"</span>: <span class="schema-type">integer | null</span>,        <span class="schema-comment">// Smallest currency unit</span>
+  <span class="schema-field">"min_price"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"max_price_display"</span>: <span class="schema-type">string | null</span>,  <span class="schema-comment">// "99.00 INR"</span>
+  <span class="schema-field">"min_price_display"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"status"</span>: <span class="schema-type">integer</span>,                  <span class="schema-comment">// INACTIVE=0 | ACTIVE=1</span>
+  <span class="schema-field">"badge"</span>: <span class="schema-type">string | null</span>,             <span class="schema-comment">// "POPULAR", "RECOMMENDED"</span>
+  <span class="schema-field">"platform"</span>: <span class="schema-type">integer[] | null</span>,       <span class="schema-comment">// IOS=1 | ANDROID=2 | WEB=3</span>
+  <span class="schema-field">"country"</span>: <span class="schema-type">string | null</span>            <span class="schema-comment">// "INDIA", "USA"</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- TaxonomyDetailsResponse -->
+            <div class="schema-card" data-search="taxonomy details response subject hierarchy mcq count">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">TaxonomyDetailsResponse</span>
+                        <span class="schema-card-desc">Subject taxonomy hierarchy</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <div class="schema-block"><pre>{
+  <span class="schema-field">"id"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"display_uid"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"short_uid"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"name"</span>: <span class="schema-type">string</span>,
+  <span class="schema-field">"description"</span>: <span class="schema-type">string | null</span>,
+  <span class="schema-field">"parent_id"</span>: <span class="schema-type">string | null</span>,        <span class="schema-comment">// null if L1 (root)</span>
+  <span class="schema-field">"course_id"</span>: <span class="schema-type">CourseEnum</span>,
+  <span class="schema-field">"sort_order"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"mcq_count"</span>: {                    <span class="schema-comment">// Published MCQ counts</span>
+    <span class="schema-field">"pyq_count"</span>: <span class="schema-type">integer</span>,
+    <span class="schema-field">"dq_count"</span>: <span class="schema-type">integer</span>,
+    <span class="schema-field">"eq_count"</span>: <span class="schema-type">integer</span>
+  },
+  <span class="schema-field">"docket_count"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"updated_at"</span>: <span class="schema-type">integer | null</span>,
+  <span class="schema-field">"is_deleted"</span>: <span class="schema-type">boolean</span>,
+  <span class="schema-field">"status"</span>: <span class="schema-type">integer | null</span>,          <span class="schema-comment">// DRAFT=1 | PUBLISHED=2 | UNPUBLISHED=3 | ARCHIVE=4</span>
+  <span class="schema-field">"emoji"</span>: <span class="schema-type">string | null</span>             <span class="schema-comment">// L1 display emoji</span>
+}</pre></div>
+                </div>
+            </div>
+
+            <!-- CourseEnum -->
+            <div class="schema-card" data-search="course enum values id upsc neet ssc">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">CourseEnum</span>
+                        <span class="schema-card-desc">Allowed course IDs</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <p style="font-size:14px;margin-bottom:12px;color:var(--text-secondary)">Enum representing allowed course IDs as integers, with human-readable display names.</p>
+                    <div class="enum-values">
+                        <span class="enum-val">80085 (TEST)</span>
+                        <span class="enum-val">1 (UPSC)</span>
+                        <span class="enum-val">2 (STATE_PSC)</span>
+                        <span class="enum-val">3 (SSC_CGL)</span>
+                        <span class="enum-val">10 (NEET)</span>
+                        <span class="enum-val">11 (AIIMS)</span>
+                        <span class="enum-val">12 (JIPMER)</span>
+                        <span class="enum-val">13</span>
+                        <span class="enum-val">20</span>
+                        <span class="enum-val">21</span>
+                        <span class="enum-val">22</span>
+                        <span class="enum-val">23</span>
+                        <span class="enum-val">30</span>
+                        <span class="enum-val">31</span>
+                        <span class="enum-val">32</span>
+                        <span class="enum-val">40</span>
+                        <span class="enum-val">41</span>
+                        <span class="enum-val">42</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Enums -->
+            <div class="schema-card" data-search="enums question type platform login gender status">
+                <div class="schema-card-header" onclick="toggleSchema(this)">
+                    <div>
+                        <span class="schema-card-name">Common Enums</span>
+                        <span class="schema-card-desc">Frequently used enum values</span>
+                    </div>
+                    <svg class="endpoint-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="schema-card-body">
+                    <table class="params-table">
+                        <thead><tr><th>Enum</th><th>Values</th></tr></thead>
+                        <tbody>
+                            <tr><td><span class="param-name">LoginPlatformEnum</span></td><td class="param-desc">web, ios, ios_t, an, an_t</td></tr>
+                            <tr><td><span class="param-name">LoginApplicationEnum</span></td><td class="param-desc">wri, prx, arivu</td></tr>
+                            <tr><td><span class="param-name">MobileLoginPlatformEnum</span></td><td class="param-desc">ios, ios_t, an, an_t</td></tr>
+                            <tr><td><span class="param-name">QuestionTypeEnum</span></td><td class="param-desc">PYQ=1, DQ=2, EQ=3</td></tr>
+                            <tr><td><span class="param-name">QuestionContentFormatEnum</span></td><td class="param-desc">SIMPLE_MCQ=1, ADVANCED_MCQ=2</td></tr>
+                            <tr><td><span class="param-name">GenderEnum</span></td><td class="param-desc">NON_BINARY=0, MALE=1, FEMALE=2, OTHER=3</td></tr>
+                            <tr><td><span class="param-name">PlatformEnum</span></td><td class="param-desc">IOS=1, ANDROID=2, WEB=3</td></tr>
+                            <tr><td><span class="param-name">PublishingStatusEnum</span></td><td class="param-desc">DRAFT=1, PUBLISHED=2, UNPUBLISHED=3, ARCHIVE=4</td></tr>
+                            <tr><td><span class="param-name">PlanTypeEnum</span></td><td class="param-desc">PUBLIC=1, PRIVATE=2, GIFT=3, TRIAL=4</td></tr>
+                            <tr><td><span class="param-name">PlanStatusEnum</span></td><td class="param-desc">INACTIVE=0, ACTIVE=1</td></tr>
+                            <tr><td><span class="param-name">BookmarkStatusEnum</span></td><td class="param-desc">BOOKMARKED=1, NOT_BOOKMARKED=2</td></tr>
+                            <tr><td><span class="param-name">MCQReactionTypeEnum</span></td><td class="param-desc">LIKE=1, DISLIKE=2, NONE=3</td></tr>
+                            <tr><td><span class="param-name">CustomTestModeEnum</span></td><td class="param-desc">STUDY=1, EXAM=2, MULTI_PLAYER=3</td></tr>
+                            <tr><td><span class="param-name">CustomTestStatusEnum</span></td><td class="param-desc">DISCARDED=1, LIVE=2, SUBMITTED=3</td></tr>
+                            <tr><td><span class="param-name">DataEncryptionEnum</span></td><td class="param-desc">NONE=0, V2_1=1, V2_2=2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Arivu API Documentation v1.0.0 &mdash; Asymmetric Labs &mdash; Tagged: April 29, 2026 (Tuesday)</p>
+            <p style="margin-top:6px">Generated from OpenAPI 3.1.0 spec &mdash; <a href="http://asymmetriclabs.ai">asymmetriclabs.ai</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle endpoint expand/collapse
+        function toggleEndpoint(header) {
+            header.parentElement.classList.toggle('open');
+        }
+
+        // Toggle schema card
+        function toggleSchema(header) {
+            header.parentElement.classList.toggle('open');
+        }
+
+        // Tag filtering
+        document.querySelectorAll('.tag-pill').forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tag = pill.dataset.tag;
+
+                document.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+
+                if (tag === 'all') {
+                    document.querySelectorAll('.tag-group, .schemas-section').forEach(g => g.classList.remove('hidden'));
+                } else if (tag === 'schemas') {
+                    document.querySelectorAll('.tag-group').forEach(g => g.classList.add('hidden'));
+                    document.querySelector('.schemas-section').classList.remove('hidden');
+                } else {
+                    document.querySelectorAll('.tag-group, .schemas-section').forEach(g => {
+                        if (g.dataset.tag === tag) {
+                            g.classList.remove('hidden');
+                        } else {
+                            g.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+
+            if (!query) {
+                document.querySelectorAll('.endpoint, .schema-card, .tag-group, .schemas-section').forEach(el => {
+                    el.classList.remove('hidden');
+                });
+                return;
+            }
+
+            // Show all groups first, then hide endpoints/schemas that don't match
+            document.querySelectorAll('.tag-group, .schemas-section').forEach(g => g.classList.remove('hidden'));
+
+            document.querySelectorAll('.endpoint').forEach(ep => {
+                const searchData = ep.dataset.search || '';
+                const text = ep.textContent.toLowerCase();
+                if (text.includes(query) || searchData.includes(query)) {
+                    ep.classList.remove('hidden');
+                } else {
+                    ep.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.schema-card').forEach(sc => {
+                const searchData = sc.dataset.search || '';
+                const text = sc.textContent.toLowerCase();
+                if (text.includes(query) || searchData.includes(query)) {
+                    sc.classList.remove('hidden');
+                } else {
+                    sc.classList.add('hidden');
+                }
+            });
+
+            // Hide groups if all their children are hidden
+            document.querySelectorAll('.tag-group').forEach(group => {
+                const visibleEndpoints = group.querySelectorAll('.endpoint:not(.hidden)');
+                if (visibleEndpoints.length === 0) {
+                    group.classList.add('hidden');
+                }
+            });
+
+            const schemasSection = document.querySelector('.schemas-section');
+            if (schemasSection) {
+                const visibleSchemas = schemasSection.querySelectorAll('.schema-card:not(.hidden)');
+                if (visibleSchemas.length === 0) {
+                    schemasSection.classList.add('hidden');
+                }
+            }
+        });
+
+        // Reset tag filter on search
+        searchInput.addEventListener('focus', () => {
+            document.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+            document.querySelector('[data-tag="all"]').classList.add('active');
+            document.querySelectorAll('.tag-group, .schemas-section').forEach(g => g.classList.remove('hidden'));
+        });
+    </script>
+</body>
+</html>
