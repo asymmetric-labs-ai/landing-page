@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Asymmetric Labs</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f1ece2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #1c1a17;
+      padding: 24px;
+    }
+    main { max-width: 26rem; text-align: center; }
+    .mark {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8a8377;
+      margin-bottom: 2.5rem;
+    }
+    h1 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.9rem; }
+    p { font-size: 1rem; line-height: 1.55; color: #5f594f; }
+    p + p { margin-top: 0.5rem; }
+    .home {
+      display: inline-block;
+      margin-top: 1.8rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 999px;
+      background: #1c1a17;
+      color: #f1ece2;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .home:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">Asymmetric Labs</div>
+    <div id="content">
+      <h1>Page not found</h1>
+      <p>The page you&rsquo;re looking for doesn&rsquo;t exist.</p>
+    </div>
+    <a class="home" href="/">Go to asymmetriclabs.ai</a>
+  </main>
+  <script>
+    var path = location.pathname;
+    if (path === "/home" || path === "/home/") {
+      location.replace("/");
+    } else if (path.indexOf("/link/") === 0) {
+      document.getElementById("content").innerHTML =
+        "<h1>This link opens in the app</h1>" +
+        "<p>Shared content is viewed in the mobile app. Open this link on a phone with the app installed and it will take you straight there.</p>";
+    }
+  </script>
+</body>
+</html>

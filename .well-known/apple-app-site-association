@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "A725R7JBK3.com.asymmetriclabs.upsc",
+          "A725R7JBK3.com.asymmetriclabs.upsc.staging"
+        ],
+        "components": [
+          { "/": "/link/*" },
+          { "/": "/home" }
+        ]
+      }
+    ]
+  }
+}

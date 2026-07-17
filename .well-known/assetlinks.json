@@ -1,0 +1,22 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.asym.mcq",
+      "sha256_cert_fingerprints": [
+        "DC:1D:79:C5:9E:2D:92:79:26:98:C7:4B:8E:2C:A5:22:96:A8:D4:96:D6:89:A4:6A:8E:21:70:8F:2B:AF:C1:B0"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.asym.mcq.debug",
+      "sha256_cert_fingerprints": [
+        "45:6E:BB:6E:6F:BD:7B:BB:35:5D:58:EC:BC:40:39:95:51:D3:C5:B7:91:8A:9B:28:31:36:13:40:19:67:A3:F7"
+      ]
+    }
+  }
+]
