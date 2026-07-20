@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UPSC Prelims Experts — Asymmetric Labs</title>
+  <meta name="description" content="Asymmetric Labs is hiring UPSC Prelims experts. Remote, flexible hours, ₹1,000–₹5,000 per hour. Help build accurate, reliable content for serious aspirants across India.">
+  <meta property="og:title" content="UPSC Prelims Experts Wanted — Asymmetric Labs">
+  <meta property="og:description" content="Remote · Flexible hours · ₹1,000–₹5,000 per hour. Review PYQs, verify explanations, and shape an AI-first UPSC platform.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%231a1814'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='36' fill='%23f1ece2'%3Ea.%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://embed.typeform.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://embed.typeform.com/next/css/popup.css">
+
+  <style>
+    :root {
+      --bg: #f1ece2;
+      --bg-deep: #e8e1d2;
+      --ink: #1a1814;
+      --ink-soft: rgba(26, 24, 20, 0.62);
+      --ink-faint: rgba(26, 24, 20, 0.38);
+      --accent: #c8643a;
+      --accent-2: #3a4a3a;
+      --rule: rgba(26, 24, 20, 0.18);
+      --serif: 'Instrument Serif', 'Times New Roman', serif;
+      --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+      --space-section: clamp(72px, 6vw + 40px, 128px);
+      --pad-x: clamp(20px, 4vw, 48px);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      position: relative;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* Grain + vignette atmosphere, matching the main site */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .atmosphere::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 90% at 50% 0%, transparent 40%, var(--bg-deep) 100%);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px var(--pad-x) 0;
+    }
+
+    .mono-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    a { color: inherit; }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+      padding-bottom: 4px;
+    }
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name strong {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    .brand-name .mono-label { color: var(--ink-faint); font-size: 9.5px; }
+
+    .status { color: var(--ink-soft); display: flex; align-items: center; gap: 8px; }
+    .status i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: var(--space-section) 0 clamp(56px, 5vw, 88px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--rule);
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(44px, 7.2vw, 104px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+      max-width: 12ch;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-sub {
+      margin-top: 32px;
+      max-width: 52ch;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+
+    .hero-cta {
+      margin-top: 44px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-meta { color: var(--ink-faint); }
+
+    /* ── Apply button ── */
+    .apply-btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 30px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+    .apply-btn span { transition: transform 180ms ease; }
+    .apply-btn:hover { background: transparent; color: var(--ink); }
+    .apply-btn:hover span { transform: translateX(3px); }
+    .apply-btn:active { transform: translateY(1px); }
+    .apply-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ── Sections ── */
+    section { padding: clamp(56px, 5vw, 88px) 0; border-bottom: 1px solid var(--rule); }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      margin-bottom: clamp(32px, 3vw, 48px);
+    }
+    .section-head .index { color: var(--accent); }
+    .section-head h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+    }
+
+    /* Role list — editorial numbered rows */
+    .role-list { list-style: none; }
+    .role-list li {
+      display: grid;
+      grid-template-columns: 64px 1fr 1.2fr;
+      gap: 20px;
+      padding: 26px 0;
+      border-top: 1px solid var(--rule);
+      align-items: baseline;
+    }
+    .role-list li:last-child { border-bottom: 1px solid var(--rule); }
+    .role-list .num { color: var(--ink-faint); font-size: 11px; letter-spacing: 0.14em; }
+    .role-list h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(20px, 2vw, 26px);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .role-list p { color: var(--ink-soft); font-size: 13.5px; }
+
+    /* Two-column band: who can apply + compensation */
+    .band {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: clamp(40px, 5vw, 88px);
+      align-items: start;
+    }
+
+    .criteria { list-style: none; display: flex; flex-direction: column; }
+    .criteria li {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      align-items: baseline;
+      font-size: 14px;
+    }
+    .criteria li:last-child { border-bottom: 1px solid var(--rule); }
+    .criteria .tick {
+      flex: none;
+      color: var(--accent);
+      font-size: 13px;
+    }
+    .criteria .plus-note { color: var(--ink-soft); }
+
+    .comp-card {
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      padding: clamp(28px, 3vw, 40px);
+      position: relative;
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .comp-card .mono-label { color: var(--ink-soft); }
+    .comp-card .comp-rate {
+      font-family: var(--serif);
+      font-size: clamp(40px, 4.6vw, 60px);
+      color: var(--ink);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 14px 0 4px;
+    }
+    .comp-rate em { font-style: italic; color: var(--accent); }
+    .comp-unit { color: var(--ink-soft); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .comp-card hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
+    .comp-card p { color: var(--ink-soft); font-size: 13px; }
+    .comp-card p + p { margin-top: 12px; }
+    .comp-card p strong { color: var(--ink); font-weight: 500; }
+
+    /* ── Final CTA ── */
+    .final {
+      padding: var(--space-section) 0;
+      text-align: center;
+      border-bottom: none;
+    }
+    .final h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 68px);
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+    .final h2 em { font-style: italic; color: var(--accent); }
+    .final .apply-btn { margin-top: 40px; }
+    .final .hint { margin-top: 20px; color: var(--ink-faint); font-size: 12px; }
+
+    /* ── Footer ── */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0 32px;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-faint);
+    }
+    footer .wordmark {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .band { grid-template-columns: 1fr; }
+      .role-list li { grid-template-columns: 44px 1fr; }
+      .role-list p { grid-column: 2; }
+    }
+    @media (max-width: 480px) {
+      .role-list li { grid-template-columns: 1fr; gap: 8px; }
+      .role-list p { grid-column: 1; }
+      .status { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <svg width="100%" height="100%" style="position:absolute;inset:0">
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"></feTurbulence>
+        <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"></feColorMatrix>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain)" opacity="0.8"></rect>
+    </svg>
+  </div>
+
+  <div class="page">
+    <header>
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"><span style="transform:translateY(2px)">a.</span></span>
+        <span class="brand-name">
+          <strong>Asymmetric Labs</strong>
+          <span class="mono-label">EST. 2025 · IN STEALTH</span>
+        </span>
+      </a>
+      <span class="status mono-label"><i aria-hidden="true"></i>Hiring</span>
+    </header>
+
+    <main>
+      <!-- ── Hero ── -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <p class="eyebrow mono-label">Open role · Remote · Flexible hours</p>
+        <h1 id="hero-heading">UPSC Prelims <em>experts,</em> wanted.</h1>
+        <p class="hero-sub">
+          Help build the future of UPSC learning with Asym AI — accurate,
+          reliable content for serious aspirants across India.
+        </p>
+        <div class="hero-cta">
+          <button type="button" class="apply-btn" data-apply>
+            Apply
+            <span aria-hidden="true">→</span>
+          </button>
+          <span class="hero-meta mono-label">Takes 5 minutes</span>
+        </div>
+      </section>
+
+      <!-- ── The role ── -->
+      <section aria-labelledby="role-heading">
+        <div class="section-head">
+          <span class="index mono-label">01</span>
+          <h2 id="role-heading">Your role</h2>
+        </div>
+        <ul class="role-list">
+          <li>
+            <span class="num" aria-hidden="true">/ 01</span>
+            <h3>Review PYQs &amp; explanations</h3>
+            <p>Go through Previous Year Questions across subjects.</p>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">/ 02</span>
+            <h3>Verify &amp; refine</h3>
+            <p>Make every explanation accurate, current and conceptually clear.</p>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">/ 03</span>
+            <h3>Uphold academic rigour</h3>
+            <p>Maintain the standards serious aspirants expect.</p>
+          </li>
+          <li>
+            <span class="num" aria-hidden="true">/ 04</span>
+            <h3>Shape the product</h3>
+            <p>Your judgement directly improves an AI-first platform.</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── Who can apply + compensation ── -->
+      <section aria-labelledby="apply-heading">
+        <div class="band">
+          <div>
+            <div class="section-head">
+              <span class="index mono-label">02</span>
+              <h2 id="apply-heading">Who can apply</h2>
+            </div>
+            <ul class="criteria">
+              <li><span class="tick" aria-hidden="true">✓</span>Scored 100+ in your latest Prelims attempt</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Cleared Prelims multiple times</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Strong command and conceptual clarity in your subject</li>
+              <li><span class="tick" aria-hidden="true">✓</span><span class="plus-note">Teaching, mentorship or content-review experience is a plus</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-head">
+              <span class="index mono-label">03</span>
+              <h2>Compensation</h2>
+            </div>
+            <div class="comp-card">
+              <span class="mono-label">Hourly rate</span>
+              <p class="comp-rate">₹1,000 – <em>₹5,000</em></p>
+              <span class="comp-unit">per hour</span>
+              <hr>
+              <p>Based on experience, expertise and previous scores.</p>
+              <p><strong>Plus bonuses for performance, quality and consistency.</strong></p>
+              <p>Top performers get priority projects and long-term association.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Final CTA ── -->
+      <section class="final" aria-labelledby="final-heading">
+        <h2 id="final-heading">Interested? Keep your latest<br>Prelims marks card <em>handy.</em></h2>
+        <button type="button" class="apply-btn" data-apply>
+          Apply now
+          <span aria-hidden="true">→</span>
+        </button>
+        <p class="hint mono-label">Remote · Flexible hours · Takes 5 minutes</p>
+      </section>
+    </main>
+
+    <footer>
+      <a class="wordmark" href="/">a. Asymmetric Labs</a>
+      <span class="mono-label">Asymmetric advantage for UPSC</span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var TYPEFORM_FORM_ID = "WWkF3XFt";
+      var EMBED_JS = "https://embed.typeform.com/next/embed.js";
+      var popup = null;
+
+      function launch() {
+        popup = popup || window.tf.createPopup(TYPEFORM_FORM_ID);
+        popup.open();
+      }
+
+      function openTypeform() {
+        if (window.tf && window.tf.createPopup) return launch();
+        var script = document.createElement("script");
+        script.src = EMBED_JS;
+        script.onload = launch;
+        document.head.appendChild(script);
+      }
+
+      var buttons = document.querySelectorAll("[data-apply]");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", openTypeform);
+      }
+    })();
+  </script>
+</body>
+</html>
