@@ -128,16 +128,16 @@ As a Data Principal you have the right to:
 - **Nomination** — nominate a person to exercise your rights in the event of your death or incapacity;
 - **Withdraw consent** — at any time, with effect for the future, as easily as you gave it; we will stop the consent-based processing (some features, or the Service as a whole, may become unavailable as a result).
 
-To exercise any right, use the in-app options where available or email **legal@asymmetriclabs.ai** from your registered email. We will respond within the timelines prescribed by law. If you are not satisfied with our response, you may complain to the **Data Protection Board of India**.
+To exercise any right, use the in-app options where available or email **support@asymmetriclabs.ai** from your registered email. We will respond within the timelines prescribed by law. If you are not satisfied with our response, you may complain to the **Data Protection Board of India**.
 
 ## 9. Children
 
-The Service is intended for users aged **16 and above**. Under the DPDP Act, persons under 18 are children: if you are 16–17, your parent or legal guardian must provide verifiable consent before you use the Service, and they accept our Terms on your behalf. We do not undertake behavioural monitoring of, or targeted advertising directed at, children. We do not knowingly process data of anyone under 16; if you believe we have done so, contact legal@asymmetriclabs.ai and we will delete it.
+The Service is intended for users aged **16 and above**. Under the DPDP Act, persons under 18 are children: if you are 16–17, your parent or legal guardian must provide verifiable consent before you use the Service, and they accept our Terms on your behalf. We do not undertake behavioural monitoring of, or targeted advertising directed at, children. We do not knowingly process data of anyone under 16; if you believe we have done so, contact support@asymmetriclabs.ai and we will delete it.
 
 ## 10. Grievance Officer and Data Protection Contact
 
 > **Grievance Officer:** Amirthaprasad Srinivasan
-> **Email:** legal@asymmetriclabs.ai
+> **Email:** support@asymmetriclabs.ai
 > **Address:** Asym AI Labs Pvt Ltd, [REGISTERED OFFICE ADDRESS]
 
 We will acknowledge grievances within **24 hours** and resolve them within **15 days**. This contact also serves for all data-protection questions, consent withdrawal, and rights requests under the DPDP Act.
@@ -169,6 +169,6 @@ We may update this Policy from time to time. Material changes will be notified t
 
 > Asym AI Labs Pvt Ltd
 > [REGISTERED OFFICE ADDRESS]
-> Data protection & grievances: legal@asymmetriclabs.ai (Grievance Officer: Amirthaprasad Srinivasan)
+> Data protection & grievances: support@asymmetriclabs.ai (Grievance Officer: Amirthaprasad Srinivasan)
 > Support: support@asymmetriclabs.ai
 > Website: https://asymmetriclabs.ai

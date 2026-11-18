@@ -579,7 +579,7 @@ def build_refunds() -> None:
         <p>If you bought a subscription through the Apple App Store or Google Play billing, cancellation and refunds are handled by that store under its own policies.</p>
 
         <h2>7. Contact</h2>
-        <p>{esc(LEGAL)}, {address_inline()}. Support: {mailto(SUPPORT)}. Grievance Officer: {esc(SITE["grievance_officer"])}, {mailto(LEGAL_EMAIL)}.</p>
+        <p>{esc(LEGAL)}, {address_inline()}. Support and Grievance Officer ({esc(SITE["grievance_officer"])}): {mailto(SUPPORT)}.</p>
       </div>
     </section>"""
     page(
