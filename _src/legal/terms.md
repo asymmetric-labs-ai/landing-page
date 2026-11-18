@@ -156,7 +156,7 @@ The Service integrates third-party services (such as sign-in providers, payment 
 In accordance with the Information Technology Act, 2000, the IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, and the Consumer Protection (E-Commerce) Rules, 2020, our Grievance Officer is:
 
 > **Grievance Officer:** Amirthaprasad Srinivasan
-> **Email:** legal@asymmetriclabs.ai
+> **Email:** support@asymmetriclabs.ai
 > **Address:** Asym AI Labs Pvt Ltd, [REGISTERED OFFICE ADDRESS]
 
 We will acknowledge your complaint within **24 hours** and resolve it within **fifteen (15) days** of receipt (or such shorter period as applicable law prescribes for specific categories of complaints). For data-protection grievances, see also the Privacy Policy; if you are not satisfied with our response, you may approach the **Data Protection Board of India** or other competent authority.
@@ -202,5 +202,5 @@ Where you download the app from the Apple App Store or Google Play Store, the fo
 16.6. **Contact.**
 > Asym AI Labs Pvt Ltd
 > [REGISTERED OFFICE ADDRESS]
-> Support: support@asymmetriclabs.ai · Legal: legal@asymmetriclabs.ai
+> Support and legal: support@asymmetriclabs.ai
 > Website: https://asymmetriclabs.ai
