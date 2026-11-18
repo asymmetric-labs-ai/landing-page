@@ -1,0 +1,24 @@
+{
+  "brand": "Asymmetric Labs",
+  "legal_name": "AsymAI Labs Private Limited",
+  "cin": "U62099KA2025PTC201203",
+  "gstin": "29ABCCA6580F1ZJ",
+  "registered_office": [
+    "93/67 East End B Main Road",
+    "Jayanagar 9th Block",
+    "Bengaluru, Karnataka 560069",
+    "India"
+  ],
+  "phone": "",
+  "support_email": "support@asymmetriclabs.ai",
+  "legal_email": "legal@asymmetriclabs.ai",
+  "grievance_officer": "Amirthaprasad Srinivasan",
+  "effective_date": "17 November 2026",
+  "asym": {
+    "play_url": "https://play.google.com/store/apps/details?id=com.asym.mcq",
+    "appstore_url": "https://apps.apple.com/in/app/asym/id6759093105"
+  },
+  "hela": {
+    "url": "https://hela.org"
+  }
+}
