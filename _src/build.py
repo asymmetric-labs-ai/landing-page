@@ -137,7 +137,7 @@ def page(path: str, title: str, description: str, body: str) -> None:
 
   <footer>
     <div class="wrap">
-      <p class="legal">© 2026 {esc(LEGAL)}. Asym is a product of {esc(LEGAL)}. Hela is a product of Cistema Pte. Ltd., distributed in India by {esc(LEGAL)}.</p>
+      <p class="legal">© 2026 {esc(LEGAL)}. Asym is a product of {esc(LEGAL)}. Asymmetric Labs is the sole distributor of Hela in India.</p>
       <nav aria-label="Footer">{foot}</nav>
     </div>
   </footer>
@@ -160,7 +160,7 @@ def hero(eyebrow: str, heading: str, text: str, small: bool = True) -> str:
 
 
 def build_home() -> None:
-    body = f"""{hero(esc(LEGAL), "Aiding human intelligence with AI", f"{esc(BRAND)} is the trading name of {esc(LEGAL)}, an Indian education technology company. We build Asym, a learning platform for UPSC aspirants. In India we also distribute Hela, the medical knowledge platform of Cistema Pte. Ltd., and provide the technology and content services behind it.", small=False)}
+    body = f"""{hero(esc(LEGAL), "Aiding human intelligence with AI", f"{esc(BRAND)} is the trading name of {esc(LEGAL)}, an Indian education technology company. We build Asym, a learning platform for UPSC aspirants. We are also the sole distributor of Hela in India.", small=False)}
 
     <section id="what-we-do">
       <div class="wrap">
@@ -176,13 +176,13 @@ def build_home() -> None:
           <div class="card">
             <h3>Distribution in India</h3>
             <h4>Hela</h4>
-            <p>Hela is a medical knowledge platform owned by Cistema Pte. Ltd., Singapore. We are its distributor in India: we sell Hela subscriptions to users in India and collect payment in Indian Rupees.</p>
+            <p>Asymmetric Labs is the sole distributor of Hela in India.</p>
             <div class="btns"><a class="btn" href="/hela/">Hela in India</a></div>
           </div>
           <div class="card">
             <h3>Services</h3>
             <h4>Technology and content</h4>
-            <p>We provide software development, content production and user support services to Cistema Pte. Ltd. for Hela, alongside the work on our own product.</p>
+            <p>We provide software development, content production and user support services for Hela, alongside the work on our own product.</p>
             <div class="btns"><a class="btn" href="/about/">About the company</a></div>
           </div>
         </div>
@@ -217,20 +217,19 @@ def build_home() -> None:
       <div class="wrap">
         <p class="eyebrow">Distributed in India</p>
         <h2>Hela, for medical students and clinicians.</h2>
-        <p class="lede">Hela is a maintained body of clinical knowledge with the evidence kept attached. It is owned and operated by Cistema Pte. Ltd. Subscriptions bought in India are sold and billed by {esc(LEGAL)}.</p>
+        <p class="lede">Asymmetric Labs is the sole distributor of Hela in India.</p>
         <div class="product">
           <div>
             {HELA_LOGO}
             <h3>Clinical knowledge, kept current, with the evidence attached.</h3>
-            <p>Available on the web at hela.org and as the Hela mobile apps. Plans and prices are shown on hela.org.</p>
+            <p>A medical knowledge platform for medical students and clinicians. Everything about Hela, including plans and prices, is on hela.org.</p>
             <div class="btns">
               <a class="btn primary" href="{esc(HELA_URL)}" rel="noopener">Visit hela.org</a>
-              <a class="btn" href="/hela/">Our role</a>
             </div>
           </div>
           <ul class="facts">
-            <li><strong>Owner</strong>Cistema Pte. Ltd., Singapore (<a href="https://cistema.ai" rel="noopener">cistema.ai</a>).</li>
-            <li><strong>Seller in India</strong>{esc(LEGAL)}, as distributor.</li>
+            <li><strong>Our role</strong>Sole distributor of Hela in India.</li>
+            <li><strong>Who it is for</strong>Medical students and clinicians.</li>
             <li><strong>Plans and prices</strong>See <a href="{esc(HELA_URL)}" rel="noopener">hela.org</a>.</li>
           </ul>
         </div>
@@ -271,8 +270,8 @@ def build_home() -> None:
     </section>"""
     page(
         "/",
-        "Asymmetric Labs — Makers of Asym, distributor of Hela in India",
-        f"{LEGAL} (Asymmetric Labs) builds Asym, a learning platform for UPSC aspirants, and distributes the Hela medical knowledge platform in India.",
+        "Asymmetric Labs — Makers of Asym, sole distributor of Hela in India",
+        f"{LEGAL} (Asymmetric Labs) builds Asym, a learning platform for UPSC aspirants, and is the sole distributor of Hela in India.",
         body,
     )
 
@@ -329,44 +328,14 @@ def build_asym() -> None:
 
 
 def build_hela() -> None:
-    body = f"""{hero("Distributed in India", "Hela in India", f"Hela is a medical knowledge platform for medical students and clinicians, owned and operated by Cistema Pte. Ltd., Singapore. {esc(LEGAL)} is its distributor in India.")}
+    body = f"""{hero("Distributed in India", "Hela in India", "Asymmetric Labs is the sole distributor of Hela in India.")}
 
     <section>
       <div class="wrap">
         <p class="eyebrow">The product</p>
-        <h2>Clinical knowledge, kept current, with the evidence attached.</h2>
-        <p class="lede">Hela is a maintained reference for medicine, written as dockets: structured notes on conditions, drugs and clinical thresholds, each statement carrying its sources. It is available on the web and as mobile apps, for users aged 18 and over.</p>
-        <p class="lede">Everything about the product, including its plans and current prices, is on <a href="{esc(HELA_URL)}" rel="noopener">hela.org</a>.</p>
-        <div class="btns">
-          <a class="btn primary" href="{esc(HELA_URL)}" rel="noopener">Visit hela.org</a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Our role</p>
-        <h2>Who does what.</h2>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th></th><th>Cistema Pte. Ltd.</th><th>{esc(LEGAL)}</th></tr></thead>
-            <tbody>
-              <tr><td>Role</td><td>Owner and operator of Hela</td><td>Distributor of Hela in India, and service provider to Cistema</td></tr>
-              <tr><td>Country</td><td>Singapore</td><td>India</td></tr>
-              <tr><td>The product</td><td>Owns the Hela software, content and brand; publishes Hela's Terms of Use and Privacy Policy</td><td>Provides software development, content production and user support services for Hela</td></tr>
-              <tr><td>Subscriptions in India</td><td>Grants us the right to sell Hela in India</td><td>Sells the subscription, collects payment in Indian Rupees through Razorpay, and handles billing support and refunds</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Buying Hela in India</p>
-        <h2>How payment works.</h2>
-        <p class="lede">You choose a plan on <a href="{esc(HELA_URL)}" rel="noopener">hela.org</a>, sign in, and pay through Razorpay by UPI, card or another method Razorpay offers. Access starts as soon as the payment is confirmed. The subscription renews at the end of each billing period until you cancel; after you cancel, access continues to the end of the period you have paid for.</p>
-        <p class="lede">The charge is made by {esc(LEGAL)}. Use of Hela itself is governed by Hela's <a href="https://hela.org/terms" rel="noopener">Terms of Use</a> and <a href="https://hela.org/privacy" rel="noopener">Privacy Policy</a>. Billing, cancellation and refunds are covered by our <a href="/refunds/">Cancellation and Refund Policy</a>.</p>
+        <h2>A medical knowledge platform.</h2>
+        <p class="lede">Hela is a medical knowledge platform for medical students and clinicians. Everything about the product, including its plans and current prices, is on <a href="{esc(HELA_URL)}" rel="noopener">hela.org</a>.</p>
+        <p class="lede">As the sole distributor in India, {esc(LEGAL)} sells and bills Hela subscriptions bought in India. Billing, cancellation and refunds are covered by our <a href="/refunds/">Cancellation and Refund Policy</a>.</p>
         <div class="btns">
           <a class="btn primary" href="{esc(HELA_URL)}" rel="noopener">Visit hela.org</a>
           <a class="btn" href="/contact/">Billing support</a>
@@ -376,13 +345,13 @@ def build_hela() -> None:
     page(
         "/hela/",
         "Hela in India — Asymmetric Labs",
-        f"{LEGAL} is the distributor of Hela in India. Hela is a medical knowledge platform owned by Cistema Pte. Ltd. Our role and how payment works.",
+        "Asymmetric Labs is the sole distributor of Hela in India.",
         body,
     )
 
 
 def build_pricing() -> None:
-    body = f"""{hero("Pricing", "Pricing", "Asym, our own product, is free to use at the moment. Hela, which we distribute in India, is a paid digital subscription; its plans and prices are on hela.org.")}
+    body = f"""{hero("Pricing", "Pricing", "Asym, our own product, is free to use at the moment. We are the sole distributor of Hela in India; its plans and prices are on hela.org.")}
 
     <section>
       <div class="wrap">
@@ -414,10 +383,9 @@ def build_pricing() -> None:
       <div class="wrap">
         <p class="eyebrow">Distributed in India</p>
         <h2>Hela.</h2>
-        <p class="lede">Hela is owned by Cistema Pte. Ltd. In India the subscription is sold and billed by {esc(LEGAL)}, in Indian Rupees with GST included. Plans and current prices are shown on hela.org, where you subscribe.</p>
+        <p class="lede">Asymmetric Labs is the sole distributor of Hela in India. Subscriptions are sold in Indian Rupees with GST included. Plans and current prices are shown on hela.org, where you subscribe.</p>
         <div class="btns">
           <a class="btn primary" href="{esc(HELA_URL)}" rel="noopener">Visit hela.org</a>
-          <a class="btn" href="/hela/">Our role</a>
         </div>
       </div>
     </section>
@@ -456,11 +424,11 @@ def build_about() -> None:
           </div>
           <div class="card">
             <h3>2. Hela distribution</h3>
-            <p>We distribute Hela, the medical knowledge platform of Cistema Pte. Ltd., in India. We sell Hela subscriptions to users in India, collect payment in Indian Rupees and pay Cistema for the right to distribute.</p>
+            <p>Asymmetric Labs is the sole distributor of Hela in India. We sell Hela subscriptions to users in India and collect payment in Indian Rupees.</p>
           </div>
           <div class="card">
             <h3>3. Services</h3>
-            <p>We provide software development, content production and user support services to Cistema Pte. Ltd. for Hela.</p>
+            <p>We provide software development, content production and user support services for Hela.</p>
           </div>
         </div>
       </div>
@@ -496,7 +464,7 @@ def build_about() -> None:
     page(
         "/about/",
         "About — Asymmetric Labs",
-        f"About {LEGAL} (Asymmetric Labs): maker of Asym, distributor of Hela in India and technology service provider.",
+        f"About {LEGAL} (Asymmetric Labs): maker of Asym and sole distributor of Hela in India.",
         body,
     )
 
